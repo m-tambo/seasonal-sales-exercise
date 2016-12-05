@@ -10,6 +10,7 @@ categoriesRequest.send();
 function showTheCategories(e) {
    var categoriesData = JSON.parse(e.target.responseText);
    console.log(categoriesData);
+   document.getElementById("categories").innerHTML = categoriesData;
 }
 
 
@@ -21,4 +22,5 @@ productsRequest.send();
 function showTheProducts(k) {
    var productsData = JSON.parse(k.target.responseText);
    console.log(productsData);
+   document.getElementById("products").innerHTML = productsData;
 }
