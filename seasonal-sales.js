@@ -1,16 +1,24 @@
+
+
+
+
 var categoriesRequest = new XMLHttpRequest();
-categoriesRequest.addEventListener("load", executeThisCodeAfterFileIsLoaded);
+categoriesRequest.addEventListener("load", showTheCategories);
 categoriesRequest.open("GET", "categories.json");
 categoriesRequest.send();
 
-var categoriesData = JSON.parse(e.target.responseText);
-
+function showTheCategories(e) {
+   var categoriesData = JSON.parse(e.target.responseText);
+   console.log(categoriesData);
+}
 
 
 var productsRequest = new XMLHttpRequest();
-productsRequest.addEventListener("load", executeThisCodeAfterFileIsLoaded);
-productsRequest.open("GET", "categories.json");
+productsRequest.addEventListener("load", showTheProducts);
+productsRequest.open("GET", "products.json");
 productsRequest.send();
 
-var productsData = JSON.parse(e.target.responseText);
-console.log(productsData);
+function showTheProducts(k) {
+   var productsData = JSON.parse(k.target.responseText);
+   console.log(productsData);
+}
