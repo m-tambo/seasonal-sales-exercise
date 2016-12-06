@@ -1,13 +1,13 @@
 var categoriesData;
 var productsData;
 
+// import the categories JSON
 function loadCategories(e) {
    categoriesData = JSON.parse(e.target.responseText);
    console.log("category data:", categoriesData);
 }
 
-
-
+// populate products into html
 function loadProducts(k) {
    productsData = JSON.parse(k.target.responseText);
    console.log("product data:", productsData);
@@ -33,6 +33,17 @@ function loadProducts(k) {
    }
 }
 
+// discounted price function
+function discountPrice() {
+
+// event listeners for the select tag
+document.getElementById("springDisc").addEventListener("select", discountPrice(categoriesData.categories[2].discount))
+document.getElementById("autumnDisc").addEventListener("select", discountPrice(categoriesData.categories[0].discount))
+document.getElementById("winterDisc").addEventListener("select", discountPrice(categoriesData.categories[1].discount))
+
+}
+
+// XMH requests
 var categoriesRequest = new XMLHttpRequest();
 categoriesRequest.addEventListener("load", loadCategories);
 categoriesRequest.open("GET", "categories.json");
