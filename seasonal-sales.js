@@ -5,6 +5,10 @@ var productsData;
 function loadCategories(e) {
    categoriesData = JSON.parse(e.target.responseText);
    console.log("category data:", categoriesData);
+   // event listeners for the select tag
+   document.querySelector("select").addEventListener("change", discountPrice)
+   // document.querySelector("#autumnDisc").addEventListener("change", discountPrice(categoriesData.categories[1].id, .25))
+   // document.querySelector("#winterDisc").addEventListener("change", discountPrice(categoriesData.categories[0].id, .10))
 }
 
 // populate products into html
@@ -31,24 +35,26 @@ function loadProducts(k) {
          <hr>
          `
    }
+   // XML requests
+   var categoriesRequest = new XMLHttpRequest();
+   categoriesRequest.addEventListener("load", loadCategories);
+   categoriesRequest.open("GET", "categories.json");
+   categoriesRequest.send();
 }
 
 // discounted price function
-function discountPrice() {
-
-// event listeners for the select tag
-document.getElementById("springDisc").addEventListener("select", discountPrice(categoriesData.categories[2].discount))
-document.getElementById("autumnDisc").addEventListener("select", discountPrice(categoriesData.categories[0].discount))
-document.getElementById("winterDisc").addEventListener("select", discountPrice(categoriesData.categories[1].discount))
-
+function discountPrice(e) {
+   console.log(e)
+   for (var k = 0; k < categoriesData.categories.length; k++) {
+      for (var i = 0; i < productsData.products.length; i++) {
+         if (productsData.products[i].category_id === categoriesData.categories[k].id) {
+            document.getElementById("priceSpecs").innerHTML = `${productsData.products[i].price - (productsData.products[i].price * categoriesData.categories[k].discount)}`
+         }
+      }
+   }
 }
 
-// XMH requests
-var categoriesRequest = new XMLHttpRequest();
-categoriesRequest.addEventListener("load", loadCategories);
-categoriesRequest.open("GET", "categories.json");
-categoriesRequest.send();
-
+// XML requests
 var productsRequest = new XMLHttpRequest();
 productsRequest.addEventListener("load", loadProducts);
 productsRequest.open("GET", "products.json");
